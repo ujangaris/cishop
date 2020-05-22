@@ -116,6 +116,8 @@ class MY_Model extends CI_Model
             $this->calculateRealOffset($page)
 
         );
+
+        return $this;
     }
 
     public function calculateRealOffset($page)
@@ -123,8 +125,9 @@ class MY_Model extends CI_Model
         if (is_null($page) || empty($page)) {
             $offset = 0;
         } else {
-            $offset = ($page * $this->perPage) - $this->page;
+            $offset = ($page * $this->perPage) - $this->perPage;
         }
+
         return $offset;
     }
 
