@@ -34,7 +34,7 @@ class Category extends MY_Controller
         if (!$this->category->validate()) {
             $data['title'] = 'Tambah Kategori';
             $data['input'] = $input;
-            $data['form_action'] = ' category/create';
+            $data['form_action'] = base_url('category/create');
             $data['page'] = 'pages/category/form';
 
             $this->view($data);
@@ -42,12 +42,29 @@ class Category extends MY_Controller
         }
 
         if ($this->category->create($input)) {
-            $this->session->set->flashdata('success', 'Data berhasil disimpan!');
+            $this->session->set_flashdata('success', 'Data berhasil disimpan!');
         } else {
-            $this->session->set->flashdata('error', 'Oops, Terjadi suatu kesalahan');
+            $this->session->set_flashdata('error', 'Oops, Terjadi suatu kesalahan');
         }
 
         redirect(base_url('category'));
+    }
+
+    public function unique_slug()
+    {
+        $slug = $this->input->post('slug');
+        $id = $this->input->post('id');
+        $category = $this->category->where('slug', $slug)->first();
+
+        if ($category) {
+            if ($id = $category->id) {
+                return true;
+            }
+            $this->form_validation->set_message('unique_slug', '%s sudah digunakan');
+            return false;
+        }
+
+        return true;
     }
 }
 
