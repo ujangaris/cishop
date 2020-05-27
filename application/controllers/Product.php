@@ -46,32 +46,49 @@ class Product extends MY_Controller
             $input = (object) $this->input->post(null, true);
         }
 
-        if (!empty($_FILES) && $_FILES['images']['name'] !== '') {
-            $imageName = url_title($input->title . '-', true) . '-' . date(ymdHis);
-            $upload = $this->product->uploadImage('image', $imageName);
+        if (!empty($_FILES) && $_FILES['image']['name'] !== '') {
+            $imageName  = url_title($input->title, '-', true) . '-' . date('YmdHis');
+            $upload     = $this->product->uploadImage('image', $imageName);
             if ($upload) {
-                $input->image = $upload['fileName'];
+                $input->image   = $upload['file_name'];
             } else {
                 redirect(base_url('product/create'));
             }
         }
 
         if (!$this->product->validate()) {
-            $data['title'] = 'Tambah Produk';
-            $data['input'] = $input;
-            $data['form_action'] = base_url('product/create');
-            $data['page'] = 'pages/product/form';
+            $data['title']          = 'Tambah Produk';
+            $data['input']          = $input;
+            $data['form_action']    = base_url('product/create');
+            $data['page']           = 'pages/product/form';
 
             $this->view($data);
             return;
         }
-        if ($this->product->create($input)) {
 
-            $this->session->set_flashdata('success', 'Data berhasil di simpan!');
+        if ($this->product->create($input)) {
+            $this->session->set_flashdata('success', 'Data berhasil disimpan!');
         } else {
-            $this->session->set_flashdata('error', 'Oops! terjadi kesalahan!');
+            $this->session->set_flashdata('errors', 'Ooops! Terjadi suatu kesalahan');
         }
         redirect(base_url('product'));
+    }
+
+    public function unique_slug()
+    {
+        $slug       = $this->input->post('slug');
+        $id         = $this->input->post('id');
+        $product   = $this->product->where('slug', $slug)->first();
+
+        if ($product) {
+            if ($id == $product->id) {
+                return true;
+            }
+            $this->load->library('form_validation');
+            $this->form_validation->set_message('unique_slug', '%s sudah digunakan!');
+            return false;
+        }
+        return true;
     }
 }
 
