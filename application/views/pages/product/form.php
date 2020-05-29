@@ -50,6 +50,9 @@
                         <?php if ($input->image) : ?>
                             <img src="<?= base_url("/images/product/$input->image") ?>" alt="" height="150">
                         <?php endif ?>
+                        <?php if ($input->image) : ?>
+                            <img src="<?= base_url('images/product/$input->image') ?>" alt="" height="150">
+                        <?php endif ?>
                     </div>
                     <div class="form-group">
                         <label for="">Slug</label>

@@ -1,4 +1,4 @@
-<main role="main" lass="container">
+<main role="main" class="container">
     <?php $this->load->view('layouts/_alert'); ?>
     <div class="row">
         <div class="col-md-10 mx-auto">
@@ -46,7 +46,7 @@
                                     <td>Rp<?= number_format($row->price, 0, ',', '.') ?> ,-</td>
                                     <td><?= $row->is_available ? 'Tersedia' : 'Kosong' ?></td>
                                     <td>
-                                        <a href="#">
+                                        <a href="<?= base_url("Product/edit/$row->id") ?>">
                                             <button class="btn btn-sm">
                                                 <i class="fas fa-edit text-info"></i>
                                             </button>
