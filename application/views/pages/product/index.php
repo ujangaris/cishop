@@ -46,16 +46,19 @@
                                     <td>Rp<?= number_format($row->price, 0, ',', '.') ?> ,-</td>
                                     <td><?= $row->is_available ? 'Tersedia' : 'Kosong' ?></td>
                                     <td>
+                                        <?= form_open(base_url("/product/delete/$row->id"), ['method' => 'POST']) ?>
+                                        <?= form_hidden('id', $row->id) ?>
                                         <a href="<?= base_url("Product/edit/$row->id") ?>">
                                             <button class="btn btn-sm">
                                                 <i class="fas fa-edit text-info"></i>
                                             </button>
                                         </a>
                                         <a href="#">
-                                            <button class="btn btn-sm" type="submit" onclick="return confirm('Are you sure?');">
+                                            <button class="btn btn-sm" type="submit" onclick="return confirm('Apakah yakin ingin menghapus?');">
                                                 <i class="fas fa-trash text-danger"></i>
                                             </button>
                                         </a>
+                                        <?= form_close() ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
