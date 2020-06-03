@@ -123,6 +123,29 @@ class User extends MY_Controller
         redirect(base_url('user'));
     }
 
+    public function delete($id)
+    {
+        if (!$_POST) {
+            redirect(base_url('user'));
+        }
+
+        $user = $this->user->where('id', $id)->first();
+
+        if (!$user) {
+            $this->session->set_flashdata('warning', 'Maaf, data tidak dapat ditemukan');
+            redirect(base_url('user'));
+        }
+
+        if ($this->user->where('id', $id)->delete()) {
+            $this->user->deleteImage($user->image);
+            $this->session->set_flashdata('success', 'Data sudah berhasil dihapus!');
+        } else {
+            $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan!');
+        }
+
+        redirect(base_url('user'));
+    }
+
     public function unique_email()
     {
         $email = $this->input->post('email');
