@@ -31,6 +31,39 @@ class User extends MY_Controller
         $this->view($data);
     }
 
+    public function search($page = null)
+    {
+        if (isset($_POST['keyword'])) {
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
+        } else {
+            redirect(base_url('user'));
+        }
+
+        $keyword    = $this->session->userdata('keyword');
+        $data['title']        = 'Admin: Pengguna';
+        $data['content']    = $this->user
+            ->like('name', $keyword)
+            ->orLike('email', $keyword)
+            ->paginate($page)
+            ->get();
+        $data['total_rows']    = $this->user->like('name', $keyword)->orLike('email', $keyword)->count();
+        $data['pagination']    = $this->user->makePagination(
+            base_url('user/search'),
+            3,
+            $data['total_rows']
+        );
+        $data['page']        = 'pages/user/index';
+
+        $this->view($data);
+    }
+
+    public function reset()
+    {
+        $this->session->unset_userdata('keyword');
+        redirect(base_url('user'));
+    }
+
+
     public function create()
     {
         if (!$_POST) {
