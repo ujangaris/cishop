@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
-                            Kategori: <strong>Semua Kategori</strong>
+                            Kategori: <strong><?= isset($category) ? $category : 'Semua Kategori' ?></strong>
                             <span class="float-right">
                                 Urutkan Harga: <a href="<?= base_url("/shop/sortby/asc") ?>" class="badge badge-primary">Termurah</a> | <a href="<?= base_url("/shop/sortby/desc") ?>" class="badge badge-primary">Termahal</a>
                             </span>
@@ -72,9 +72,10 @@
                             Kategori
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Semua Kategori</li>
-                            <li class="list-group-item">Kategori 1</li>
-                            <li class="list-group-item">Kategori 2</li>
+                            <li class="list-group-item"><a href="<?= base_url('/') ?>">Semua Kategori</a></li>
+                            <?php foreach (getCategories() as $category) : ?>
+                                <li class="list-group-item"><a href="<?= base_url("/shop/category/$category->slug") ?>"><?= $category->title ?></a></li>
+                            <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
