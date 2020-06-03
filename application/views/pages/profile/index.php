@@ -1,11 +1,8 @@
 <main role="main" class="container">
+    <?php $this->load->view('layouts/_alert'); ?>
     <div class="row">
         <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php $this->load->view('layouts/_menu'); ?>
-                </div>
-            </div>
+            <?php $this->load->view('layouts/_menu'); ?>
         </div>
         <div class="col-md-9">
             <div class="row">
@@ -21,7 +18,7 @@
                         <div class="card-body">
                             <p>Nama: <?= $content->name ?></p>
                             <p>E-Mail: <?= $content->email ?></p>
-                            <a href="/profile-update.html" class="btn btn-primary">Edit</a>
+                            <a href="<?= base_url("/profile/update/$content->id") ?>" class="btn btn-primary">Edit</a>
                         </div>
                     </div>
                 </div>
