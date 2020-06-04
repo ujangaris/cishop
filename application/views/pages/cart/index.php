@@ -24,9 +24,10 @@
                                     </td>
                                     <td class="text-center">Rp<?= number_format($row->price, 0, ',', '.') ?>,-</td>
                                     <td>
-                                        <form action="">
+                                        <form action="<?= base_url("cart/update/$row->id") ?>" method="POST">
+                                            <input type="hidden" name="id" value="<?= $row->id ?>">
                                             <div class="input-group">
-                                                <input type="number" value="<?= $row->qty ?>" class="form-control text-center" />
+                                                <input type="number" name="qty" value="<?= $row->qty ?>" class="form-control text-center" />
                                                 <div class="input-group-append">
                                                     <button class="btn btn-info" type="submit">
                                                         <i class="fas fa-check"></i>
