@@ -1,5 +1,5 @@
 <main role="main" class="container">
-    <?php $this->load->view('layouts/_alert'); ?>
+    <?php $this->load->view('layouts/_alert') ?>
     <div class="row">
         <div class="col-md-9">
             <div class="row">
@@ -26,11 +26,12 @@
                                 <a href="<?= base_url("/shop/category/$row->category_slug") ?>" class="badge badge-primary"><i class="fas fa-tags"></i> <?= $row->category_title ?></a>
                             </div>
                             <div class="card-footer">
-                                <form action="#">
+                                <form action="<?= base_url("/cart/add") ?>" method="POST">
+                                    <input type="hidden" name="id_product" value="<?= $row->id ?>">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" />
+                                        <input type="number" name="qty" value="1" class="form-control">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary">Add to Card</button>
+                                            <button class="btn btn-primary">Add to Cart</button>
                                         </div>
                                     </div>
                                 </form>
