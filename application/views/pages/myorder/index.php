@@ -19,32 +19,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="/order-detail.html"><strong>#012345678</strong></a>
-                                </td>
-                                <td>20200520</td>
-                                <td>Rp.300.000,-</td>
-                                <td>
-                                    <span class="badge badge-pill badge-warning">Menunggu Pembayaran</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="/order-detail.html">#012345678</a></td>
-                                <td>20200519</td>
-                                <td>Rp.300.000,-</td>
-                                <td>
-                                    <span class="badge badge-pill badge-success">Dikirim</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="/order-detail.html">#012345678</a></td>
-                                <td>20200510</td>
-                                <td>Rp.300.000,-</td>
-                                <td>
-                                    <span class="badge badge-pill badge-danger">Dibatalkan</span>
-                                </td>
-                            </tr>
+                            <?php foreach ($content as $row) : ?>
+                                <tr>
+                                    <td>
+                                        <a href="#"><strong>#<?= $row->invoice ?></strong></a>
+                                    </td>
+                                    <td><?= str_replace('-', '/', date("d-m-Y", strtotime($row->date))) ?></td>
+                                    <td>Rp<?= number_format($row->total, 0, ',', '.') ?>,-</td>
+                                    <td>
+                                        <?php $this->load->view('layouts/_status', ['status' => $row->status]);  ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
