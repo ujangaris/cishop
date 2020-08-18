@@ -105,6 +105,15 @@ class Myorder extends MY_Controller
 
         redirect(base_url("myorder/detail/$invoice"));
     }
+
+    public function image_required()
+    {
+        if (empty($_FILES) || $_FILES['image']['name'] === '') {
+            $this->session->set_flashdata('image_error', 'Bukti transfer tidak boleh kosong!');
+            return false;
+        }
+        return true;
+    }
 }
 
 /* End of file Myorder.php */
