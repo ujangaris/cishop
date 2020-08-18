@@ -44,7 +44,7 @@ class Myorder extends MY_Controller
             ->join('product')
             ->where('orders_detail.id_orders', $data['order']->id)
             ->get();
-
+        //untuk menganti status waiting
         if ($data['order']->status !== 'waiting') {
             $this->myorder->table = 'orders_confirm';
             $data['order_confirm']    = $this->myorder->where('id_orders', $data['order']->id)->first();
